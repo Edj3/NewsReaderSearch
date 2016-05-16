@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context="com.mannmade.newsreadersearch.ArticleActivity">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <RelativeLayout android:id="@+id/article_main_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF">
+
+            <RelativeLayout android:id="@+id/header_image_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0088FF">
+
+                <ImageView android:id="@+id/article_header_image"
+                    android:src="@drawable/ic_science"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:scaleType="fitStart"
+                    android:layout_alignParentStart="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/article_likes_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header_image_layout">
+
+                <TextView android:id="@+id/article_date"
+                    android:text="@string/text_goes_here"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"/>
+
+                <ImageView android:id="@+id/article_likes"
+                    android:src="@drawable/like_heart_full_large"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentEnd="true"/>
+
+                <TextView android:id="@+id/article_likes_number"
+                    android:text="@string/text_goes_here"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView android:id="@+id/article_content"
+                    android:text="@string/text_goes_here"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/article_date"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/article_caption_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/article_likes_layout">
+
+                <ImageView android:id="@+id/article_caption_image"
+                    android:src="@drawable/article_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"/>
+
+                <TextView android:id="@+id/article_caption"
+                    android:text="@string/text_goes_here"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/article_caption_image"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/similar_articles_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/article_caption_layout">
+
+                <TextView android:id="@+id/similar_articles_title"
+                    android:text="@string/similar_articles"
+                    android:textColor="#0088FF"
+                    android:textSize="22sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <GridView android:id="@+id/similar_articles_grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/similar_articles_title"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/comments_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/similar_articles_layout">
+
+                <TextView android:id="@+id/comments_title"
+                    android:text="@string/comments"
+                    android:textSize="22sp"
+                    android:textColor="#0088FF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <GridView android:id="@+id/comments_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/comments_title"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout android:id="@+id/article_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#440088FF"
+        android:elevation="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_goes_here"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/arrow"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

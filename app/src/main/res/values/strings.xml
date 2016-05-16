@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NewsReaderSearch</string>
+    <string name="splash_title">Android News Reader</string>
+    <string name="comments">Comments</string>
+    <string name="similar_articles">Similar Articles</string>
+    <string name="articles">Articles</string>
+    <string name="categories">Categories</string>
+    <string name="settings">Settings</string>
+    <string name="search_articles">Search Articles</string>
+    <string name="text_goes_here">Text Goes Here</string>
+    <string name="arrow">&#060;</string>
+</resources>
