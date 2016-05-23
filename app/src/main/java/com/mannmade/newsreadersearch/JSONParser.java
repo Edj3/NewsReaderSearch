@@ -1,5 +1,7 @@
 package com.mannmade.newsreadersearch;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,32 +12,45 @@ import java.util.LinkedHashMap;
 /**
  * Created by Eg0 Jemima on 5/16/2016.
  */
-public class JSONParser {
-    public ArrayList<LinkedHashMap<String, String>> getJSONforString(String json){
+public class JSONParser {//Singleton Class to pass JSON String provided
+    //member variables and constructor need to be private for singletons! Only allow others to access needed getters
+    private static JSONParser mInstance = null;
+    public ArrayList<ArticleObject> jsonArrayList;
+
+    //private constructor
+    private JSONParser(){}
+
+    public static JSONParser getInstance(){
+        if(mInstance == null){
+            mInstance = new JSONParser();
+        }
+        return mInstance;
+    }
+
+    public void getJSONforString(String json){
         //One Array list to house all mappings of key value pairs
-        ArrayList<LinkedHashMap<String, String>> ebayItemList = new ArrayList<>();
+        jsonArrayList = new ArrayList<>();
 
         try{
             //create JSON Object
-            JSONArray readEbayArray = new JSONArray(json);
+            JSONObject readObject = new JSONObject(json);
+            JSONObject responseObject = readObject.getJSONObject("response");
+            JSONArray docArray = responseObject.getJSONArray("docs");
             //loop thru each item in jsonArray and store key value pairs in map for each object
-            for(int i = 0; i < readEbayArray.length(); i++){
-                JSONObject jsonItem = readEbayArray.getJSONObject(i);
-                //Log.i("Listing Items", "Item " + i);
-                Iterator<String> keys = jsonItem.keys();
-                LinkedHashMap<String, String> itemMap = new LinkedHashMap<>();
+            for(int i = 0; i < docArray.length(); i++){
+                JSONObject jsonItem = docArray.getJSONObject(i);
+                JSONObject headlineItem = jsonItem.getJSONObject("headline");
+                Log.i("Listing Items", "Item " + i);
+                //Iterator<String> keys = jsonItem.keys();
+                ArticleObject article;
+                String headline = headlineItem.getString("main");
 
-                while(keys.hasNext()){
-                    String key = keys.next();
-                    String value = jsonItem.getString(key);
-                    itemMap.put(key, value);
-                }
-                ebayItemList.add(itemMap);
+                article = new ArticleObject(headline);
+                Log.i("Json Item", article.headline);
+                jsonArrayList.add(article);
             }
-            //Log.i("Items in Array", "The count of the items in your array list is = " + ebayItemList.size());
         }catch(Exception e){
-            e.printStackTrace();
+            Log.e("NewsReaderSearch", "JsonParsingError", e);
         }
-        return ebayItemList;
     }
 }
