@@ -45,6 +45,7 @@ public class SplashActivity extends AppCompatActivity {
             if(result == 1){
                 Intent intent = new Intent(getApplicationContext(), HeadlinesActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
     }

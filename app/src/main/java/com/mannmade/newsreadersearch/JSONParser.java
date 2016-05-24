@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,7 +59,13 @@ public class JSONParser {//Singleton Class to pass JSON String provided
                 String imageUrl = multimediaItem.getJSONObject(0).getString("url"); //get first image to use as image of list item
 
                 //author
-                String author = jsonItem.getJSONObject("byline").getString("original");
+                String author = "";
+                Object jsonOb = jsonItem.get("byline");
+                if(jsonOb instanceof JSONArray){
+                    author = "";
+                }else{
+                    author = jsonItem.getJSONObject("byline").getString("original");
+                }
 
                 article = new ArticleObject(headline, webUrl, imageUrl, author, pubDate);
                 String currentItemString = article.headline + ", " + article.articleUrl + ", " + article.imageUrl + ", " + article.author + ", " + article.date;

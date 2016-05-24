@@ -19,13 +19,14 @@
         android:elevation="10dp"/>
 
     <LinearLayout android:id="@+id/search_layout"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CCCCCC"
+        android:background="#FFFFFF"
         android:elevation="10dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layout_below="@+id/headline_tabs">
 
         <SearchView
             android:id="@+id/search_view"
@@ -38,18 +39,20 @@
             android:iconifiedByDefault="false"/>
 
         <ListView
-            android:id="@+id/list_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:id="@+id/search_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/headline_articles_list"
+        android:layout_below="@+id/headline_tabs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"/>
 
     <ImageButton android:id="@+id/search_button"
         android:contentDescription="@string/search_articles"
@@ -58,8 +61,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:background="#FFFFFF"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#00FFFFFF"/>
 
 </RelativeLayout>

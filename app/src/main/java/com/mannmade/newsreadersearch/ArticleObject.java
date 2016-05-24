@@ -17,4 +17,9 @@ public class ArticleObject {
         this.author = author;
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return this.headline;
+    }
 }
