@@ -39,14 +39,30 @@ public class JSONParser {//Singleton Class to pass JSON String provided
             //loop thru each item in jsonArray and store key value pairs in map for each object
             for(int i = 0; i < docArray.length(); i++){
                 JSONObject jsonItem = docArray.getJSONObject(i);
+
+                //webURL for entire article
+                String webUrl = jsonItem.getString("web_url");
+
+                //date for article
+                String pubDate = jsonItem.getString("pub_date");
+
+                //headline object
                 JSONObject headlineItem = jsonItem.getJSONObject("headline");
                 Log.i("Listing Items", "Item " + i);
                 //Iterator<String> keys = jsonItem.keys();
                 ArticleObject article;
                 String headline = headlineItem.getString("main");
 
-                article = new ArticleObject(headline);
-                Log.i("Json Item", article.headline);
+                //multimedia array
+                JSONArray multimediaItem = jsonItem.getJSONArray("multimedia");
+                String imageUrl = multimediaItem.getJSONObject(0).getString("url"); //get first image to use as image of list item
+
+                //author
+                String author = jsonItem.getJSONObject("byline").getString("original");
+
+                article = new ArticleObject(headline, webUrl, imageUrl, author, pubDate);
+                String currentItemString = article.headline + ", " + article.articleUrl + ", " + article.imageUrl + ", " + article.author + ", " + article.date;
+                Log.i("Json Item", currentItemString);
                 jsonArrayList.add(article);
             }
         }catch(Exception e){

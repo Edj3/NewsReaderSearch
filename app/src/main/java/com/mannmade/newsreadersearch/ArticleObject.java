@@ -5,13 +5,16 @@ package com.mannmade.newsreadersearch;
  */
 public class ArticleObject {
     public String headline;
-    public String content;
+    public String articleUrl;
+    public String imageUrl;
     public String author;
-    public int likes;
-    public int comments;
-    public int category;
+    public String date;
 
-    public ArticleObject(String headline){
+    public ArticleObject(String headline, String articleUrl, String imageUrl, String author, String date){
         this.headline = headline;
+        this.articleUrl = articleUrl;
+        this.imageUrl = imageUrl;
+        this.author = author;
+        this.date = date;
     }
 }
