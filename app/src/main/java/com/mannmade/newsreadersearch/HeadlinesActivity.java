@@ -1,6 +1,7 @@
 package com.mannmade.newsreadersearch;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AdapterView;
 import android.widget.Filter;
-import android.widget.ListAdapter;
 import android.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
@@ -44,11 +44,9 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
         final LinearLayout searchLayout = (LinearLayout) findViewById(R.id.search_layout);
         articleSearchView = (SearchView)findViewById(R.id.search_view);
         articleSearchListView = (ListView) findViewById(R.id.search_list_view);
-        //String[] array = {"Me", "you","stupid"};
         ArrayAdapter articleListAdapter = new ArrayAdapter<>(this, R.layout.search_list_item, JSONParser.getInstance().jsonArrayList);
         listFilter = articleListAdapter.getFilter();
         articleSearchListView.setAdapter(articleListAdapter);
-        //articleSearchListView.setAdapter(new SearchArticleAdapter(this, JSONParser.getInstance().jsonArrayList));
         articleSearchListView.setTextFilterEnabled(true);
         setupSearchView();
 
