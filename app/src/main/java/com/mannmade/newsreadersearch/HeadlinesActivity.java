@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AdapterView;
+import android.widget.Filter;
+import android.widget.ListAdapter;
 import android.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +21,7 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
     boolean searchDisplayed = false;
     SearchView articleSearchView;
     ListView articleSearchListView;
-
+    Filter listFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,9 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
         articleSearchView = (SearchView)findViewById(R.id.search_view);
         articleSearchListView = (ListView) findViewById(R.id.search_list_view);
         //String[] array = {"Me", "you","stupid"};
-        articleSearchListView.setAdapter(new ArrayAdapter<>(this, R.layout.search_list_item, JSONParser.getInstance().jsonArrayList));
+        ArrayAdapter articleListAdapter = new ArrayAdapter<>(this, R.layout.search_list_item, JSONParser.getInstance().jsonArrayList);
+        listFilter = articleListAdapter.getFilter();
+        articleSearchListView.setAdapter(articleListAdapter);
         //articleSearchListView.setAdapter(new SearchArticleAdapter(this, JSONParser.getInstance().jsonArrayList));
         articleSearchListView.setTextFilterEnabled(true);
         setupSearchView();
@@ -66,18 +70,19 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
                     if(headlineTabs != null)
                         headlineTabs.setVisibility(View.VISIBLE);
                 }
+                searchButton.bringToFront();
             }
         });
     }
 
     private void setupSearchView() {
         articleSearchView.setOnQueryTextListener(this);
+        articleSearchListView.setTextFilterEnabled(true);
         articleSearchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //last thing to fix
                 Intent intent = new Intent(getApplicationContext(), ArticleActivity.class);
-                intent.putExtra("index", position);
+                intent.putExtra("index", JSONParser.getInstance().jsonArrayList.indexOf(parent.getAdapter().getItem(position)));
                 startActivity(intent);
             }
         });
@@ -86,8 +91,9 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {
             articleSearchListView.clearTextFilter();
+            listFilter.filter(null);
         } else {
-            articleSearchListView.setFilterText(newText);
+            listFilter.filter(newText);
         }
         return true;
     }
