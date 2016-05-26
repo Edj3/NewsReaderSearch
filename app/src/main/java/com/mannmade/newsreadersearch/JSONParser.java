@@ -52,7 +52,11 @@ public class JSONParser {//Singleton Class to pass JSON String provided
 
                 //multimedia array
                 JSONArray multimediaItem = jsonItem.getJSONArray("multimedia");
-                String imageUrl = multimediaItem.getJSONObject(0).getString("url"); //get first image to use as image of list item
+                String imageUrl = "";
+                if (!multimediaItem.isNull(0)){
+                    imageUrl = multimediaItem.getJSONObject(0).getString("url"); //get first image to use as image of list item
+                }
+
 
                 //author
                 String author = "";
