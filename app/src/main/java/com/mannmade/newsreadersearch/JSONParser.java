@@ -1,5 +1,7 @@
 package com.mannmade.newsreadersearch;
 
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -12,7 +14,10 @@ import java.util.ArrayList;
 public class JSONParser {//Singleton Class to pass JSON String provided
     //member variables and constructor need to be private for singletons! Only allow others to access needed getters
     private static JSONParser mInstance = null;
-    public ArrayList<ArticleObject> jsonArrayList;
+    private ArrayList<ArticleObject> jsonArrayList;
+
+    //used to store images across configuration (could be handled in a fragment within retainState, but no fragments used in this application!)
+    private LruCache<String, Bitmap> imageCache;
 
     //private constructor
     private JSONParser(){}
@@ -75,5 +80,21 @@ public class JSONParser {//Singleton Class to pass JSON String provided
         }catch(Exception e){
             Log.e("NewsReaderSearch", "JsonParsingError", e);
         }
+    }
+
+    public ArrayList<ArticleObject> getJsonArrayList() {
+        return jsonArrayList;
+    }
+
+    public void setJsonArrayList(ArrayList<ArticleObject> jsonArrayList) {
+        this.jsonArrayList = jsonArrayList;
+    }
+
+    public LruCache<String, Bitmap> getImageCache() {
+        return imageCache;
+    }
+
+    public void setImageCache(LruCache<String, Bitmap> imageCache) {
+        this.imageCache = imageCache;
     }
 }

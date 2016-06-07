@@ -18,6 +18,7 @@ public class ArticleObject {
         this.date = date;
     }
 
+    //getters and setters
     public String getHeadline() {
         return headline;
     }

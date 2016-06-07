@@ -19,19 +19,19 @@ import java.net.URL;
  * Created by Eg0 Jemima on 5/22/2016.
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder>{
-    private LruCache<String, Bitmap> imageCache;
-
     //constructor
     public ArticleAdapter(){  //initialize cache in constructor of adapter
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 10;  // using 1/10 of available mem
-        if(imageCache == null){
-            imageCache = new LruCache<String, Bitmap>(cacheSize){
-                @Override
-                protected int sizeOf(String key, Bitmap value) {
-                    return value.getByteCount() / 1024;
+        if(JSONParser.getInstance().getImageCache() == null){
+            JSONParser.getInstance().setImageCache(
+                new LruCache<String, Bitmap>(cacheSize){
+                    @Override
+                    protected int sizeOf(String key, Bitmap value) {
+                        return value.getByteCount() / 1024;
+                    }
                 }
-            };
+            );
         }
     }
 
@@ -58,8 +58,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     @Override
     public void onBindViewHolder(ArticleAdapter.ViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
-        holder.headlineView.setText(JSONParser.getInstance().jsonArrayList.get(position).getHeadline());
-        holder.dateView.setText(JSONParser.getInstance().jsonArrayList.get(position).getDate());
+        holder.headlineView.setText(JSONParser.getInstance().getJsonArrayList().get(position).getHeadline());
+        holder.dateView.setText(JSONParser.getInstance().getJsonArrayList().get(position).getDate());
         loadBitmap(position, holder);
 
         //open article
@@ -75,7 +75,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return JSONParser.getInstance().jsonArrayList.size();
+        return JSONParser.getInstance().getJsonArrayList().size();
     }
 
     public class ImageLoader extends AsyncTask<Object, Integer, Bitmap> {
@@ -86,7 +86,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             final int position = (int) params[1];
             Bitmap headlineImage = null;
             try {
-                URL imageURL = new URL("http://www.nytimes.com/" + JSONParser.getInstance().jsonArrayList.get(position).getImageUrl());
+                URL imageURL = new URL("http://www.nytimes.com/" + JSONParser.getInstance().getJsonArrayList().get(position).getImageUrl());
                 headlineImage = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
             } catch (Exception e) {
                 Log.e(e.getClass().getName(), e.getMessage());
@@ -109,13 +109,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     //function to add to cache
     public void addBitmapToCache(String key, Bitmap bitmap){
         if(getBitmapFromCache(key) == null){
-            imageCache.put(key, bitmap);
+            JSONParser.getInstance().getImageCache().put(key, bitmap);
         }
     }
 
     //function to getBitmapFromCache
     public Bitmap getBitmapFromCache(String key){
-        return imageCache.get(key);
+        return JSONParser.getInstance().getImageCache().get(key);
     }
 
     public void loadBitmap(int id, ViewHolder vh){

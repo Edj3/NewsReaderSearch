@@ -44,7 +44,7 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
         final LinearLayout searchLayout = (LinearLayout) findViewById(R.id.search_layout);
         articleSearchView = (SearchView)findViewById(R.id.search_view);
         articleSearchListView = (ListView) findViewById(R.id.search_list_view);
-        ArrayAdapter articleListAdapter = new ArrayAdapter<>(this, R.layout.search_list_item, JSONParser.getInstance().jsonArrayList);
+        ArrayAdapter articleListAdapter = new ArrayAdapter<>(this, R.layout.search_list_item, JSONParser.getInstance().getJsonArrayList());
         listFilter = articleListAdapter.getFilter();
         articleSearchListView.setAdapter(articleListAdapter);
         articleSearchListView.setTextFilterEnabled(true);
@@ -80,7 +80,7 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ArticleActivity.class);
-                intent.putExtra("index", JSONParser.getInstance().jsonArrayList.indexOf(parent.getAdapter().getItem(position)));
+                intent.putExtra("index", JSONParser.getInstance().getJsonArrayList().indexOf(parent.getAdapter().getItem(position)));
                 startActivity(intent);
             }
         });
