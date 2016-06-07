@@ -25,12 +25,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public ArticleAdapter(){  //initialize cache in constructor of adapter
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 10;  // using 1/10 of available mem
-        imageCache = new LruCache<String, Bitmap>(cacheSize){
-            @Override
-            protected int sizeOf(String key, Bitmap value) {
-                return value.getByteCount() / 1024;
-            }
-        };
+        if(imageCache == null){
+            imageCache = new LruCache<String, Bitmap>(cacheSize){
+                @Override
+                protected int sizeOf(String key, Bitmap value) {
+                    return value.getByteCount() / 1024;
+                }
+            };
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
