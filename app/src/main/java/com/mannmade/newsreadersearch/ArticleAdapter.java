@@ -1,9 +1,14 @@
 package com.mannmade.newsreadersearch;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.util.LruCache;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,13 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.net.URL;
 
 /**
  * Created by Eg0 Jemima on 5/22/2016.
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder>{
+
     //constructor
     public ArticleAdapter(){  //initialize cache in constructor of adapter
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
@@ -37,15 +42,27 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView headlineView;
-        public TextView dateView;
-        public ImageView imageView;
+        private TextView headlineView;
+        private TextView dateView;
+        private ImageView imageView;
 
         public ViewHolder(View v) {
             super(v);
             headlineView = (TextView) v.findViewById(R.id.headline_list_title);
             dateView = (TextView) v.findViewById(R.id.headline_list_date);
             imageView = (ImageView) v.findViewById(R.id.headline_list_image);
+        }
+
+        public TextView getHeadlineView() {
+            return headlineView;
+        }
+
+        public TextView getDateView() {
+            return dateView;
+        }
+
+        public ImageView getImageView() {
+            return imageView;
         }
     }
 
@@ -58,8 +75,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     @Override
     public void onBindViewHolder(ArticleAdapter.ViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
-        holder.headlineView.setText(JSONParser.getInstance().getJsonArrayList().get(position).getHeadline());
-        holder.dateView.setText(JSONParser.getInstance().getJsonArrayList().get(position).getDate());
+        holder.getHeadlineView().setText(JSONParser.getInstance().getJsonArrayList().get(position).getHeadline());
+        holder.getDateView().setText(JSONParser.getInstance().getJsonArrayList().get(position).getDate());
         loadBitmap(position, holder);
 
         //open article
@@ -123,9 +140,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         final Bitmap bitmap = getBitmapFromCache(imageKey);
 
         if(bitmap != null){
-            vh.imageView.setImageBitmap(bitmap);
+            vh.getImageView().setImageBitmap(bitmap);
         }else{
-            vh.imageView.setImageResource(R.drawable.ic_business);  //placeholder while image downloads
+            vh.getImageView().setImageResource(R.drawable.ic_business);  //placeholder while image downloads
             new ImageLoader().execute(vh.imageView, id);
         }
     }

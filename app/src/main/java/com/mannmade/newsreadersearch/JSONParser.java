@@ -85,11 +85,6 @@ public class JSONParser {//Singleton Class to pass JSON String provided
     public ArrayList<ArticleObject> getJsonArrayList() {
         return jsonArrayList;
     }
-
-    public void setJsonArrayList(ArrayList<ArticleObject> jsonArrayList) {
-        this.jsonArrayList = jsonArrayList;
-    }
-
     public LruCache<String, Bitmap> getImageCache() {
         return imageCache;
     }

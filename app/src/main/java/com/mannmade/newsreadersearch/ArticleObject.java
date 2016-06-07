@@ -22,41 +22,17 @@ public class ArticleObject {
     public String getHeadline() {
         return headline;
     }
-
-    public void setHeadline(String headline) {
-        this.headline = headline;
-    }
-
     public String getArticleUrl() {
         return articleUrl;
     }
-
-    public void setArticleUrl(String articleUrl) {
-        this.articleUrl = articleUrl;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getAuthor() {
         return author;
     }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     @Override
