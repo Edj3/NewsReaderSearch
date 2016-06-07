@@ -68,7 +68,7 @@ public class JSONParser {//Singleton Class to pass JSON String provided
                 }
 
                 article = new ArticleObject(headline, webUrl, imageUrl, author, pubDate);
-                String currentItemString = article.headline + ", " + article.articleUrl + ", " + article.imageUrl + ", " + article.author + ", " + article.date;
+                String currentItemString = article.getHeadline() + ", " + article.getArticleUrl() + ", " + article.getImageUrl() + ", " + article.getAuthor() + ", " + article.getDate();
                 Log.i("Json Item", currentItemString);
                 jsonArrayList.add(article);
             }

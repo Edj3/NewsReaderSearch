@@ -1,7 +1,6 @@
 package com.mannmade.newsreadersearch;
 
 import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +21,7 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
     SearchView articleSearchView;
     ListView articleSearchListView;
     Filter listFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

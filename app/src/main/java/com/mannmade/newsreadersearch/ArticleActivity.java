@@ -21,10 +21,10 @@ public class ArticleActivity extends AppCompatActivity {
             WebView articleText = (WebView) findViewById(R.id.article_content);
             articleText.setWebViewClient(new WebViewClient());
             articleText.getSettings().setJavaScriptEnabled(true);
-            articleText.loadUrl(JSONParser.getInstance().jsonArrayList.get(index).articleUrl);
+            articleText.loadUrl(JSONParser.getInstance().jsonArrayList.get(index).getArticleUrl());
         }
 
         TextView articleHeader = (TextView) findViewById(R.id.article_header_text);
-        articleHeader.setText(JSONParser.getInstance().jsonArrayList.get(index).headline);
+        articleHeader.setText(JSONParser.getInstance().jsonArrayList.get(index).getHeadline());
     }
 }
