@@ -23,9 +23,9 @@ import java.net.URL;
  * Created by Eg0 Jemima on 5/22/2016.
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder>{
-
+    Context context;
     //constructor
-    public ArticleAdapter(){  //initialize cache in constructor of adapter
+    public ArticleAdapter(Context context){  //initialize cache in constructor of adapter
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 10;  // using 1/10 of available mem
         if(JSONParser.getInstance().getImageCache() == null){
@@ -38,6 +38,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                 }
             );
         }
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -125,8 +126,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     //function to add to cache
     public void addBitmapToCache(String key, Bitmap bitmap){
-        if(getBitmapFromCache(key) == null){
+        if(getBitmapFromCache(key) == null && bitmap != null){
             JSONParser.getInstance().getImageCache().put(key, bitmap);
+        }
+        if(getBitmapFromCache(key) == null && bitmap == null){
+            JSONParser.getInstance().getImageCache().put(key, BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_business, null));
         }
     }
 

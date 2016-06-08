@@ -30,7 +30,7 @@ public class HeadlinesActivity extends AppCompatActivity implements SearchView.O
         RecyclerView articleList = (RecyclerView) findViewById(R.id.headline_articles_list);
         if(articleList != null){
             articleList.setLayoutManager(new LinearLayoutManager(this));
-            articleList.setAdapter(new ArticleAdapter());
+            articleList.setAdapter(new ArticleAdapter(this));
         }
 
         final TabLayout headlineTabs = (TabLayout) findViewById(R.id.headline_tabs);
