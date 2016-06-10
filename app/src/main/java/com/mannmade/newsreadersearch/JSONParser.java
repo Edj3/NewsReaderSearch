@@ -42,18 +42,22 @@ public class JSONParser {//Singleton Class to pass JSON String provided
             for(int i = 0; i < docArray.length(); i++){
                 JSONObject jsonItem = docArray.getJSONObject(i);
 
-                //webURL for entire article
+                //webURL for entire article - assuming all articles possess web url
                 String webUrl = jsonItem.getString("web_url");
 
                 //date for article
-                String pubDate = jsonItem.getString("pub_date");
+                String pubDate = jsonItem.optString("pub_date");
 
                 //headline object
-                JSONObject headlineItem = jsonItem.getJSONObject("headline");
-                Log.i("Listing Items", "Item " + i);
-                //Iterator<String> keys = jsonItem.keys();
+                String headline;
                 ArticleObject article;
-                String headline = headlineItem.getString("main");
+                if(jsonItem.isNull("headline")){
+                    headline = "Headline Unavailable";
+                }else{
+                    JSONObject headlineItem = jsonItem.getJSONObject("headline");
+                    Log.i("Listing Items", "Item " + i);
+                    headline = headlineItem.getString("main");
+                }
 
                 //multimedia array
                 JSONArray multimediaItem = jsonItem.getJSONArray("multimedia");
@@ -62,14 +66,17 @@ public class JSONParser {//Singleton Class to pass JSON String provided
                     imageUrl = multimediaItem.getJSONObject(0).getString("url"); //get first image to use as image of list item
                 }
 
-
                 //author
                 String author = "";
                 Object jsonOb = jsonItem.get("byline");
                 if(jsonOb instanceof JSONArray){
                     author = "";
                 }else{
-                    author = jsonItem.getJSONObject("byline").getString("original");
+                    if(jsonItem.isNull("byline")){
+                        author = "Author Unavailable";
+                    }else{
+                        author = jsonItem.getJSONObject("byline").getString("original");
+                    }
                 }
 
                 article = new ArticleObject(headline, webUrl, imageUrl, author, pubDate);
