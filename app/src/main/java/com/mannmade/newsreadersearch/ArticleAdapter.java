@@ -57,11 +57,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         public TextView getHeadlineView() {
             return headlineView;
         }
-
         public TextView getDateView() {
             return dateView;
         }
-
         public ImageView getImageView() {
             return imageView;
         }
